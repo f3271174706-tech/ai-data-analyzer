@@ -1,1 +1,8 @@
 .env
+*.xlsx
+*.csv
+*.png
+*.jpeg
+*.jpg
+*.mp3
+__pycache__/
