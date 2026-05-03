@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>个人主页</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: 'Orbitron', sans-serif;
+    background: #000;
+    overflow: hidden;
+    color: white;
+}
+
+/* 粒子背景 */
+#particles-js {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* 主卡片 */
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    width: 360px;
+    padding: 30px;
+
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+
+    box-shadow: 0 0 40px rgba(0,255,255,0.2);
+
+    text-align: center;
+    z-index: 2;
+}
+
+/* 名字 */
+#name {
+    font-size: 28px;
+    border-right: 2px solid cyan;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+/* 描述 */
+.desc {
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* 图片 */
+.photos img {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid rgba(0,255,255,0.3);
+}
+
+/* 按钮 */
+.btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid cyan;
+    color: cyan;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: cyan;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="card">
+    <div id="name"></div>
+    <div class="desc">前端开发 / 科技玩家</div>
+
+    <div class="photos">
+        <img src="d:\mycode\index\20260412184040.jpeg">
+
+        <img src="d:\mycode\index\20260426184331.jpeg">
+    </div>
+
+    <div class="btn" onclick="toggleMusic()">播放音乐</div>
+</div>
+
+<audio id="music" loop>
+    <source src="d:\mycode\index\3935024616.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 粒子库 -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<script>
+// 粒子配置
+particlesJS("particles-js", {
+  particles: {
+    number: { value: 60 },
+    color: { value: "#00ffff" },
+    shape: { type: "circle" },
+    opacity: { value: 0.5 },
+    size: { value: 3 },
+    move: { speed: 1 }
+  }
+});
+
+// 打字机
+const text = "YOUR NAME";
+let i = 0;
+function typing(){
+    if(i < text.length){
+        document.getElementById("name").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typing,100);
+    }
+}
+typing();
+
+// 音乐
+let playing = false;
+function toggleMusic(){
+    const music = document.getElementById("music");
+    const btn = document.querySelector(".btn");
+
+    if(!playing){
+        music.volume = 0;
+        music.play();
+
+        let fade = setInterval(()=>{
+            if(music.volume < 1){
+                music.volume += 0.05;
+            }
+        },100);
+
+        btn.innerText = "暂停音乐";
+        playing = true;
+    }else{
+        music.pause();
+        btn.innerText = "播放音乐";
+        playing = false;
+    }
+}
+</script>
+
+</body>
+</html>
